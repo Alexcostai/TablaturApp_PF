@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "936276964147",
+    "project_id": "tablaturapp-a9467",
+    "storage_bucket": "tablaturapp-a9467.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936276964147:android:3c7524e14d89b6742c8446",
+        "android_client_info": {
+          "package_name": "com.ort.tablaturapp_pf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936276964147-ghuce3de89ichjfs604385mkbqqvunqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7wOQsmko-LCsSwh8TBs6Q4wpLc6bb8mY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936276964147-ghuce3de89ichjfs604385mkbqqvunqm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
