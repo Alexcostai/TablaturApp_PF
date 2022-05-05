@@ -27,4 +27,14 @@
         android:name="com.ort.tablaturapp_pf.fragments.app.LearningPathFragment"
         android:label="learning_path_fragment"
         tools:layout="@layout/learning_path_fragment" />
+    <fragment
+        android:id="@+id/artistFragment"
+        android:name="com.ort.tablaturapp_pf.fragments.app.ArtistFragment"
+        android:label="artist_fragment"
+        tools:layout="@layout/artist_fragment" />
+    <fragment
+        android:id="@+id/songFragment"
+        android:name="com.ort.tablaturapp_pf.fragments.app.SongFragment"
+        android:label="song_fragment"
+        tools:layout="@layout/song_fragment" />
 </navigation>

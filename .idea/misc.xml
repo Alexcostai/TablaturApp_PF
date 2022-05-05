@@ -8,9 +8,11 @@
         <entry key="..\:/Users/Alex/AndroidStudioProjects/TablaturApp_PF/app/src/main/res/layout/login_fragment.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/TablaturApp_PF/app/src/main/res/layout/register_fragment.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/login_fragment.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/song_fragment.xml" value="0.2006340579710145" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
