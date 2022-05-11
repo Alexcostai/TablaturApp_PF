@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="instruments_list">
+        <item>Guitarra</item>
+        <item>Bajo</item>
+        <item>Bateria</item>
+    </string-array>
+</resources>
