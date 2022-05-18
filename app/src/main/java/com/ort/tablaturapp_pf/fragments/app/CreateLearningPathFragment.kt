@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import android.widget.Spinner
+import android.widget.Toast
 import com.ort.tablaturapp_pf.R
 import com.ort.tablaturapp_pf.viewmodels.CreateLearningPathViewModel
 
@@ -41,6 +43,48 @@ class CreateLearningPathFragment : Fragment() {
             instrumentSpn.adapter = adapter
         }
         return createLearningPathView;
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val selectedGenres = mutableListOf<String>()
+        val checkBoxGenres = getCheckBoxGenres()
+        checkBoxGenres.forEach {
+            it.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    if (selectedGenres.size < 3) {
+                        selectedGenres.add(it.text.toString().lowercase())
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Máximo 3 géneros!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        it.isChecked = false;
+                    }
+                } else{
+                    selectedGenres.remove(it.text.toString().lowercase())
+                }
+            }
+        }
+    }
+
+    private fun getCheckBoxGenres(): MutableList<CheckBox> {
+        val checkBoxGenres = mutableListOf<CheckBox>()
+        val v = createLearningPathView;
+        checkBoxGenres.add(v.findViewById(R.id.bluesCbx))
+        checkBoxGenres.add(v.findViewById(R.id.clasicaCbx))
+        checkBoxGenres.add(v.findViewById(R.id.cumbiaCbx))
+        checkBoxGenres.add(v.findViewById(R.id.funkCbx))
+        checkBoxGenres.add(v.findViewById(R.id.jazzCbx))
+        checkBoxGenres.add(v.findViewById(R.id.metalCbx))
+        checkBoxGenres.add(v.findViewById(R.id.popCbx))
+        checkBoxGenres.add(v.findViewById(R.id.punkCbx))
+        checkBoxGenres.add(v.findViewById(R.id.rapCbx))
+        checkBoxGenres.add(v.findViewById(R.id.reggaetonCbx))
+        checkBoxGenres.add(v.findViewById(R.id.rockCbx))
+        checkBoxGenres.add(v.findViewById(R.id.reggaeCbx))
+        return checkBoxGenres;
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
