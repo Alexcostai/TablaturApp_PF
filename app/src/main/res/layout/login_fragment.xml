@@ -24,7 +24,7 @@
             app:layout_constraintVertical_bias="0.731" />
 
         <EditText
-            android:id="@+id/text_password2"
+            android:id="@+id/loginPasswordEdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -39,7 +39,7 @@
             app:layout_constraintVertical_bias="0.588" />
 
         <EditText
-            android:id="@+id/text_user2"
+            android:id="@+id/loginEmailEdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
