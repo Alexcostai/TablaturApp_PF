@@ -1,10 +1,10 @@
 package com.ort.tablaturapp_pf.fragments.authentication
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.SpannableString
 import android.text.TextUtils
+import android.text.style.UnderlineSpan
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +12,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ort.tablaturapp_pf.R
 import com.ort.tablaturapp_pf.viewmodels.LoginViewModel
-import org.w3c.dom.Text
+
 
 class LoginFragment : Fragment() {
 
@@ -34,6 +36,7 @@ class LoginFragment : Fragment() {
     lateinit var emailEdt: EditText
     lateinit var passwordEdt: EditText
     lateinit var registerButton: TextView
+    lateinit var forgotPasswordButton: TextView
 
     private lateinit var viewModel: LoginViewModel
 
@@ -46,6 +49,13 @@ class LoginFragment : Fragment() {
         registerButton = loginView.findViewById(R.id.registerButton);
         emailEdt = loginView.findViewById(R.id.loginEmailEdt)
         passwordEdt = loginView.findViewById(R.id.loginPasswordEdt)
+        forgotPasswordButton = loginView.findViewById(R.id.forgotPasswordButton)
+        val forgotPasswordUnderline = SpannableString("Olvide mi contraseña")
+        forgotPasswordUnderline.setSpan(UnderlineSpan(), 0, forgotPasswordUnderline.length, 0)
+        val registerUnderline = SpannableString("Registrarme")
+        registerUnderline.setSpan(UnderlineSpan(), 0, registerUnderline.length, 0)
+        forgotPasswordButton.setText(forgotPasswordUnderline)
+        registerButton.setText(registerUnderline)
         return loginView
     }
 
