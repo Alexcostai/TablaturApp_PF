@@ -15,6 +15,9 @@ class ForgotPasswordFragment : Fragment() {
         fun newInstance() = ForgotPasswordFragment()
     }
 
+    lateinit var forgotView: View
+
+
     private lateinit var viewModel: ForgotPasswordViewModel
 
     override fun onCreateView(
