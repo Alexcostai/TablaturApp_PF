@@ -53,4 +53,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     //Material Design
     implementation 'com.google.android.material:material:1.6.0'
+    implementation 'com.android.volley:volley:1.2.1'
 }
