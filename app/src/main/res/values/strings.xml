@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TablaturApp_PF</string>
+    <string name="searchView_emptyListText">¡Busca tu canción o artista favorito!</string>
 </resources>
