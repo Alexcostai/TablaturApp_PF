@@ -1,9 +1,7 @@
 package com.ort.tablaturapp_pf.fragments.app
 
-import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
@@ -21,7 +19,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var viewModel: SearchViewModel
     private lateinit var contentView: View
-    private lateinit var listView: ListView
+    private lateinit var searchListView: ListView
     private lateinit var searchTextView: TextView
 
     override fun onCreateView(
@@ -30,7 +28,7 @@ class SearchFragment : Fragment() {
     ): View? {
 
         contentView = inflater.inflate(R.layout.search_fragment, container, false)
-        listView = contentView.findViewById(R.id.lv_searchResultSongs)
+        searchListView = contentView.findViewById(R.id.lv_searchResultSongs)
         searchTextView = contentView.findViewById(R.id.tv_searchTextView)
         return contentView
 
@@ -39,10 +37,10 @@ class SearchFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
-        listView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+        searchListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             Toast.makeText(contentView.context, parent?.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show()
         }
-        listView.emptyView = searchTextView
+        searchListView.emptyView = searchTextView
         // TODO: Use the ViewModel
     }
 
@@ -63,7 +61,7 @@ class SearchFragment : Fragment() {
             }
             override fun onQueryTextChange(newText: String?): Boolean {
                 if(newText.isNullOrEmpty() || newText.length <= 1) {
-                    listView.adapter = ArrayAdapter(contentView.context, android.R.layout.simple_list_item_1, mutableListOf<String>())
+                    searchListView.adapter = ArrayAdapter(contentView.context, android.R.layout.simple_list_item_1, mutableListOf<String>())
                 }
                 return true
             }
@@ -94,7 +92,7 @@ class SearchFragment : Fragment() {
                     }
                     results.addAll(artists.distinct().subList(0,getValidLength(artists.distinct().size, 3)))
                     results.addAll(songs)
-                    listView.adapter = ArrayAdapter(contentView.context, android.R.layout.simple_list_item_1, results)
+                    searchListView.adapter = ArrayAdapter(contentView.context, android.R.layout.simple_list_item_1, results)
                 }else{
                     Toast.makeText(contentView.context, "No se encontraron resultados", Toast.LENGTH_SHORT).show()
                 }
