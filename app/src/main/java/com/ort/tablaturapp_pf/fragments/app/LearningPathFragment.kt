@@ -1,15 +1,24 @@
 package com.ort.tablaturapp_pf.fragments.app
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.ort.tablaturapp_pf.R
 import com.ort.tablaturapp_pf.viewmodels.LearningPathViewModel
 
 class LearningPathFragment : Fragment() {
+
+    lateinit var lpCardView: CardView
+    lateinit var lpCreateCardView: CardView
+    lateinit var lppCardView: CardView
+    lateinit var lppCreateCardView: CardView
+    lateinit var learningPathView: View
 
     companion object {
         fun newInstance() = LearningPathFragment()
@@ -21,7 +30,39 @@ class LearningPathFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.learning_path_fragment, container, false)
+        learningPathView = inflater.inflate(R.layout.learning_path_fragment, container, false)
+        lpCardView = learningPathView.findViewById(R.id.lpCardView)
+        lpCreateCardView = learningPathView.findViewById(R.id.lpCreateCardView)
+        lppCardView = learningPathView.findViewById(R.id.lppCardView)
+        lppCreateCardView = learningPathView.findViewById(R.id.lppCreateCardView)
+        if (false) {
+            lpCreateCardView.isVisible = false;
+            lpCardView.isVisible = true;
+            lppCreateCardView.isVisible = false;
+            lppCardView.isVisible = true;
+        }
+        return learningPathView
+    }
+
+    override fun onStart() {
+        super.onStart()
+        lpCreateCardView.setOnClickListener {
+            goToFragment(CreateLearningPathFragment(), false)
+        }
+        lppCreateCardView.setOnClickListener {
+            goToFragment(CreateLearningPathFragment(), true)
+        }
+    }
+
+    private fun goToFragment(fragment: Fragment, isPremium: Boolean){
+        parentFragmentManager.beginTransaction().apply {
+            val clpFragment : Fragment = fragment
+            val arguments = Bundle()
+            arguments.putBoolean("isPremium", isPremium)
+            clpFragment.arguments = arguments
+            replace(R.id.navAppController,clpFragment)
+            commit()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
