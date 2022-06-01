@@ -1,12 +1,4 @@
 <resources>
     <string name="app_name">TablaturApp_PF</string>
-
-    <string-array name="countries_array">
-        <item>Robertoland</item>
-        <item>Pijaslnd</item>
-        <item>adsfoke</item>
-        <item>kuki</item>
-        <item>reober</item>
-        <item>sdfe</item>
-    </string-array>
+    <string name="searchView_emptyListText">¡Busca tu canción o artista favorito!</string>
 </resources>
