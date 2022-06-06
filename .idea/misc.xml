@@ -7,17 +7,16 @@
         <entry key="..\:/Users/Alex/AndroidStudioProjects/TablaturApp_PF/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/TablaturApp_PF/app/src/main/res/layout/login_fragment.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/TablaturApp_PF/app/src/main/res/layout/register_fragment.xml" value="0.36102564102564105" />
-        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/home_fragment.xml" value="0.12613981762917933" />
-        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/search_fragment.xml" value="0.1" />
-        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.24074074074074073" />
-        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/menu/nav_search_menu.xml" value="0.264" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/drawable/rounded_button.xml" value="0.153" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/activity_app.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/artist_fragment.xml" value="0.264" />
+        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/home_fragment.xml" value="0.12613981762917933" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/login_fragment.xml" value="0.23550724637681159" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/register_fragment.xml" value="0.25" />
-        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/search_fragment.xml" value="0.12613981762917933" />
+        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/search_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.259375" />
+        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/menu/nav_search_menu.xml" value="0.264" />
         <entry key="app/src/main/res/drawable/ic_home_background.xml" value="0.2135" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2135" />
         <entry key="app/src/main/res/layout/activity_app.xml" value="0.20499519679857336" />
