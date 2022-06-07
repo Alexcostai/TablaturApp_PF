@@ -42,7 +42,14 @@
         android:id="@+id/artistFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.ArtistFragment"
         android:label="artist_fragment"
-        tools:layout="@layout/artist_fragment" />
+        tools:layout="@layout/artist_fragment" >
+        <argument
+            android:name="artistName"
+            app:argType="string" />
+        <argument
+            android:name="artistId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/songFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.SongFragment"

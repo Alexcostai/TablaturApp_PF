@@ -31,9 +31,8 @@ class ArtistFragment : Fragment() {
     private lateinit var contentView: View
     private lateinit var artistTextView: TextView
     private lateinit var artistListView: ListView
-    private var artistId = 0
-    private lateinit var artistName: String
     private lateinit var songIdList: List<Int>
+    private lateinit var args: ArtistFragmentArgs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,21 +44,12 @@ class ArtistFragment : Fragment() {
         return contentView
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        arguments?.getInt("artistId")?.let {
-            artistId = it
-        }
-        arguments?.getString("artistName")?.let {
-            artistName = it
-        }
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        args = ArtistFragmentArgs.fromBundle(requireArguments())
         viewModel = ViewModelProvider(this).get(ArtistViewModel::class.java)
-        artistTextView.text = artistName
-        apiRequest(artistName)
+        artistTextView.text = args.artistName
+        apiRequest(args.artistName)
         artistListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             goToFragment(SongFragment(), songIdList[position], parent?.getItemAtPosition(position).toString())
         }
@@ -78,7 +68,7 @@ class ArtistFragment : Fragment() {
                 if(response.length() >= 1){
                     for (i in 0 until getValidLength(response.length(), 30)){
                         val resultObject = response.getJSONObject(i)
-                        if(resultObject.getJSONObject("artist").getInt("id") == artistId) {
+                        if(resultObject.getJSONObject("artist").getInt("id") == args.artistId) {
                             songs.add(
                                 resultObject.getString("title") + " - " + resultObject.getJSONObject(
                                     "artist"
