@@ -42,9 +42,9 @@ class SearchFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         searchListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             if (position < artistsLength){
-                goToFragment(ArtistFragment(), artistIdList[position], parent?.getItemAtPosition(position).toString(), true)
+                goToFragment(ArtistFragment(), artistIdList[position], parent?.getItemAtPosition(position).toString())
             }else{
-                goToFragment(SongFragment(), songIdList[position], parent?.getItemAtPosition(position).toString(), false)
+                goToFragment(SongFragment(), songIdList[position])
             }
         }
         searchListView.emptyView = searchTextView
@@ -132,21 +132,28 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun goToFragment(fragment: Fragment, id: Int, name: String, navToArtist: Boolean){
+    private fun goToFragment(fragment: Fragment, id: Int, name: String){
         parentFragmentManager.beginTransaction().apply {
             val clpFragment : Fragment = fragment
             val arguments = Bundle()
-            if(navToArtist){
-                arguments.putInt("artistId", id)
-                arguments.putString("artistName", name)
-            }else{
-                arguments.putInt("song_id", id)
-                arguments.putString("songName", name)
-            }
+            arguments.putInt("artistId", id)
+            arguments.putString("artistName", name)
             clpFragment.arguments = arguments
             replace(R.id.navAppController,clpFragment)
             commit()
         }
     }
+
+    private fun goToFragment(fragment: Fragment, id: Int){
+        parentFragmentManager.beginTransaction().apply {
+            val clpFragment : Fragment = fragment
+            val arguments = Bundle()
+            arguments.putInt("song_id", id)
+            clpFragment.arguments = arguments
+            replace(R.id.navAppController,clpFragment)
+            commit()
+        }
+    }
+
 
 }

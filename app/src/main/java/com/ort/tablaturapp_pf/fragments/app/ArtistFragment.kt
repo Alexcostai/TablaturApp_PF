@@ -51,7 +51,7 @@ class ArtistFragment : Fragment() {
         artistTextView.text = args.artistName
         apiRequest(args.artistName)
         artistListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            goToFragment(SongFragment(), songIdList[position], parent?.getItemAtPosition(position).toString())
+            goToFragment(SongFragment(), songIdList[position])
         }
         // TODO: Use the ViewModel
     }
@@ -99,12 +99,11 @@ class ArtistFragment : Fragment() {
         }
     }
 
-    private fun goToFragment(fragment: Fragment, songId: Int, songName: String){
+    private fun goToFragment(fragment: Fragment, songId: Int){
         parentFragmentManager.beginTransaction().apply {
             val clpFragment : Fragment = fragment
             val arguments = Bundle()
             arguments.putInt("songId", songId)
-            arguments.putString("songName", songName)
             clpFragment.arguments = arguments
             replace(R.id.navAppController,clpFragment)
             commit()
