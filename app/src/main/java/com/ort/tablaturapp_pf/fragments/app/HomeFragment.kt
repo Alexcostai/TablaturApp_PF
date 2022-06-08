@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.core.view.get
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
@@ -18,11 +19,10 @@ import com.ort.tablaturapp_pf.viewmodels.HomeViewModel
 class HomeFragment : Fragment() {
 
     lateinit var homeView: View
-    lateinit var btn: Button
     lateinit var listView1: ListView
     lateinit var listView2: ListView
-    lateinit var btn2: Button
     lateinit var txt: TextView
+    lateinit var subscriptionCard: CardView
     val songs = mutableListOf<Cancion>()
     var listIds = mutableListOf<String>()
 
@@ -39,12 +39,9 @@ class HomeFragment : Fragment() {
     ): View? {
 
         homeView = inflater.inflate(R.layout.home_fragment, container, false)
-        btn = homeView.findViewById(R.id.button)
         listView1 = homeView.findViewById(R.id.lv1)
         listView2 = homeView.findViewById(R.id.lv2)
-        txt = homeView.findViewById(R.id.txt)
-        btn2 = homeView.findViewById(R.id.button3)
-
+        subscriptionCard = homeView.findViewById(R.id.cv_subscription)
 
         return homeView
     }
@@ -64,6 +61,9 @@ class HomeFragment : Fragment() {
         super.onStart()
         getData("https://www.songsterr.com/a/ra/songs.json?pattern=Bad%Bunny", listView1)
         getData("https://www.songsterr.com/a/ra/songs.json?pattern=Daddy%Yankee", listView2)
+        subscriptionCard.setOnClickListener{
+            goToFragment(SubscriptionFragment())
+        }
     }
 
 
@@ -74,8 +74,6 @@ class HomeFragment : Fragment() {
         var artist: String
         var name: String
         var id: String
-        var max: Int = 4
-
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url,null, { response ->
@@ -88,7 +86,7 @@ class HomeFragment : Fragment() {
                     listIds.add(id)
                     songs.add(song)
                 }
-                for (i in 0 until max){
+                for (i in 0 until 3){
                    val conc = songs[i].artist + " - " + songs[i].title
                     junto.add(conc)
                 }
@@ -105,6 +103,14 @@ class HomeFragment : Fragment() {
             arguments.putString("song_id", song_id)
             arguments.putString("songName", songName)
             clpFragment.arguments = arguments
+            replace(R.id.navAppController,clpFragment)
+            commit()
+        }
+    }
+
+    private fun goToFragment(fragment: Fragment){
+        parentFragmentManager.beginTransaction().apply {
+            val clpFragment : Fragment = fragment
             replace(R.id.navAppController,clpFragment)
             commit()
         }
