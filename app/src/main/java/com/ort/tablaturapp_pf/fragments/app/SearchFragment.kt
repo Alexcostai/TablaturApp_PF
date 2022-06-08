@@ -1,9 +1,7 @@
 package com.ort.tablaturapp_pf.fragments.app
 
-import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
@@ -21,16 +19,19 @@ class SearchFragment : Fragment() {
 
     private lateinit var viewModel: SearchViewModel
     private lateinit var contentView: View
-    private lateinit var listView: ListView
+    private lateinit var searchListView: ListView
     private lateinit var searchTextView: TextView
+    private lateinit var artistIdList: List<Int>
+    private lateinit var songIdList: List<String>
+    private var artistsLength: Int = 3
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         contentView = inflater.inflate(R.layout.search_fragment, container, false)
-        listView = contentView.findViewById(R.id.lv_searchResultSongs)
+        searchListView = contentView.findViewById(R.id.lv_searchResultSongs)
         searchTextView = contentView.findViewById(R.id.tv_searchTextView)
         return contentView
 
@@ -39,16 +40,20 @@ class SearchFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
-        listView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            Toast.makeText(contentView.context, parent?.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show()
+        searchListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            if (position < artistsLength){
+                goToFragment(ArtistFragment(), artistIdList[position], parent?.getItemAtPosition(position).toString())
+            }else{
+                goToFragment(SongFragment(), songIdList[position])
+            }
         }
-        listView.emptyView = searchTextView
+        searchListView.emptyView = searchTextView
         // TODO: Use the ViewModel
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.nav_search_menu, menu)
-        val search = menu?.findItem(R.id.nav_search_menu)
+        val search = menu.findItem(R.id.nav_search_menu)
         val searchView = search?.actionView as SearchView
         searchView.queryHint = "Busca tu canción..."
 
@@ -63,7 +68,7 @@ class SearchFragment : Fragment() {
             }
             override fun onQueryTextChange(newText: String?): Boolean {
                 if(newText.isNullOrEmpty() || newText.length <= 1) {
-                    listView.adapter = ArrayAdapter(contentView.context, android.R.layout.simple_list_item_1, mutableListOf<String>())
+                    searchListView.adapter = ArrayAdapter(contentView.context, android.R.layout.simple_list_item_1, mutableListOf<String>())
                 }
                 return true
             }
@@ -77,12 +82,14 @@ class SearchFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    fun apiSearchRequest(searchValue: String){
+    private fun apiSearchRequest(searchValue: String){
         val url = "https://www.songsterr.com/a/ra/songs.json?pattern=" + formatSearchValue(searchValue)
         val queue = Volley.newRequestQueue(contentView.context)
         val songs = mutableListOf<String>()
         val artists = mutableListOf<String>()
         val results = mutableListOf<String>()
+        val artistsId = mutableListOf<Int>()
+        val songsId = mutableListOf<String>()
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url,null, { response ->
@@ -91,10 +98,15 @@ class SearchFragment : Fragment() {
                          val resultObject = response.getJSONObject(i)
                          songs.add(resultObject.getString("title") +" - " + resultObject.getJSONObject("artist").getString("nameWithoutThePrefix"))
                          artists.add(resultObject.getJSONObject("artist").getString("nameWithoutThePrefix"))
+                         artistsId.add(resultObject.getJSONObject("artist").getInt("id"))
+                         songsId.add(resultObject.getString("id"))
                     }
+                    songIdList = songsId
+                    artistIdList = artistsId.distinct().subList(0,getValidLength(artistsId.distinct().size, 3))
+                    artistsLength = artistIdList.size
                     results.addAll(artists.distinct().subList(0,getValidLength(artists.distinct().size, 3)))
                     results.addAll(songs)
-                    listView.adapter = ArrayAdapter(contentView.context, android.R.layout.simple_list_item_1, results)
+                    searchListView.adapter = ArrayAdapter(contentView.context, android.R.layout.simple_list_item_1, results)
                 }else{
                     Toast.makeText(contentView.context, "No se encontraron resultados", Toast.LENGTH_SHORT).show()
                 }
@@ -106,18 +118,42 @@ class SearchFragment : Fragment() {
         queue.add(jsonArrayRequest)
     }
 
-    fun formatSearchValue(searchValue: String): String{
+    private fun formatSearchValue(searchValue: String): String{
         val formattedText: String
         formattedText = searchValue.replace(" ", "%")
         return formattedText
     }
 
-    fun getValidLength (listLength: Int, desiredLength: Int): Int{
+    private fun getValidLength (listLength: Int, desiredLength: Int): Int{
         if(listLength < desiredLength){
             return listLength
         }else{
             return desiredLength
         }
     }
+
+    private fun goToFragment(fragment: Fragment, id: Int, name: String){
+        parentFragmentManager.beginTransaction().apply {
+            val clpFragment : Fragment = fragment
+            val arguments = Bundle()
+            arguments.putInt("artistId", id)
+            arguments.putString("artistName", name)
+            clpFragment.arguments = arguments
+            replace(R.id.navAppController,clpFragment)
+            commit()
+        }
+    }
+
+    private fun goToFragment(fragment: Fragment, song_id: String){
+        parentFragmentManager.beginTransaction().apply {
+            val clpFragment : Fragment = fragment
+            val arguments = Bundle()
+            arguments.putString("song_id", song_id)
+            clpFragment.arguments = arguments
+            replace(R.id.navAppController,clpFragment)
+            commit()
+        }
+    }
+
 
 }
