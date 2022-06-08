@@ -8,7 +8,10 @@
         <entry key="..\:/Users/Alex/AndroidStudioProjects/TablaturApp_PF/app/src/main/res/layout/login_fragment.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/TablaturApp_PF/app/src/main/res/layout/register_fragment.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/login_fragment.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/artist_fragment.xml" value="0.21388888888888888" />
+        <entry key="app/src/main/res/layout/home_fragment.xml" value="0.375" />
         <entry key="app/src/main/res/layout/song_fragment.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.225" />
       </map>
     </option>
   </component>
