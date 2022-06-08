@@ -49,8 +49,15 @@ class LearningPathFragment : Fragment() {
         lpCreateCardView.setOnClickListener {
             goToFragment(CreateLearningPathFragment(), false)
         }
-        lppCreateCardView.setOnClickListener {
-            goToFragment(CreateLearningPathFragment(), true)
+        //Navegacion de card premium segun sea premium o no
+        if(true){
+            lppCreateCardView.setOnClickListener {
+                goToFragment(CreateLearningPathFragment(), true)
+            }
+        }else{
+            lppCreateCardView.setOnClickListener {
+                goToFragment(SubscriptionFragment())
+            }
         }
     }
 
@@ -60,6 +67,14 @@ class LearningPathFragment : Fragment() {
             val arguments = Bundle()
             arguments.putBoolean("isPremium", isPremium)
             clpFragment.arguments = arguments
+            replace(R.id.navAppController,clpFragment)
+            commit()
+        }
+    }
+
+    private fun goToFragment(fragment: Fragment){
+        parentFragmentManager.beginTransaction().apply {
+            val clpFragment : Fragment = fragment
             replace(R.id.navAppController,clpFragment)
             commit()
         }

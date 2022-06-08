@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_homeFragment_to_learningPathFragment"
             app:destination="@id/learningPathFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_songFragment"
+            app:destination="@id/songFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_subscriptionFragment"
+            app:destination="@id/subscriptionFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -37,6 +43,9 @@
         <action
             android:id="@+id/action_learningPathFragment_to_createLearningPathFragment"
             app:destination="@id/createLearningPathFragment" />
+        <action
+            android:id="@+id/action_learningPathFragment_to_subscriptionFragment"
+            app:destination="@id/subscriptionFragment" />
     </fragment>
     <fragment
         android:id="@+id/artistFragment"
@@ -54,7 +63,14 @@
         android:id="@+id/songFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.SongFragment"
         android:label="song_fragment"
-        tools:layout="@layout/song_fragment" />
+        tools:layout="@layout/song_fragment" >
+        <argument
+            android:name="song_id"
+            app:argType="string" />
+        <argument
+            android:name="songName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/createLearningPathFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.CreateLearningPathFragment"
@@ -64,4 +80,9 @@
             android:name="isPremium"
             app:argType="boolean" />
     </fragment>
+    <fragment
+        android:id="@+id/subscriptionFragment"
+        android:name="com.ort.tablaturapp_pf.fragments.app.SubscriptionFragment"
+        android:label="subscription_fragment"
+        tools:layout="@layout/subscription_fragment" />
 </navigation>

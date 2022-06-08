@@ -41,6 +41,4 @@ class AppActivity : AppCompatActivity() {
             commit()
         }
 
-
-
 }
