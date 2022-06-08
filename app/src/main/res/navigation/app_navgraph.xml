@@ -53,7 +53,14 @@
         android:id="@+id/songFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.SongFragment"
         android:label="song_fragment"
-        tools:layout="@layout/song_fragment" />
+        tools:layout="@layout/song_fragment" >
+        <argument
+            android:name="song_id"
+            app:argType="string" />
+        <argument
+            android:name="songName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/createLearningPathFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.CreateLearningPathFragment"
