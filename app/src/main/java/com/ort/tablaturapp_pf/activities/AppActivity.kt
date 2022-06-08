@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.ort.tablaturapp_pf.R
 import com.ort.tablaturapp_pf.fragments.app.HomeFragment
 import com.ort.tablaturapp_pf.fragments.app.HomeFragmentDirections
@@ -18,6 +19,7 @@ import com.ort.tablaturapp_pf.viewmodels.LearningPathViewModel
 class AppActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigation : BottomNavigationView
+    private lateinit var topAppBar : NavigationBarView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

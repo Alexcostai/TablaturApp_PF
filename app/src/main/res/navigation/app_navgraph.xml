@@ -29,7 +29,11 @@
         android:id="@+id/learningPathFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.LearningPathFragment"
         android:label="learning_path_fragment"
-        tools:layout="@layout/learning_path_fragment" />
+        tools:layout="@layout/learning_path_fragment" >
+        <action
+            android:id="@+id/action_learningPathFragment_to_createLearningPathFragment"
+            app:destination="@id/createLearningPathFragment" />
+    </fragment>
     <fragment
         android:id="@+id/artistFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.ArtistFragment"
@@ -46,5 +50,14 @@
         <argument
             android:name="songName"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/createLearningPathFragment"
+        android:name="com.ort.tablaturapp_pf.fragments.app.CreateLearningPathFragment"
+        android:label="create_learning_path_fragment"
+        tools:layout="@layout/create_learning_path_fragment">
+        <argument
+            android:name="isPremium"
+            app:argType="boolean" />
     </fragment>
 </navigation>
