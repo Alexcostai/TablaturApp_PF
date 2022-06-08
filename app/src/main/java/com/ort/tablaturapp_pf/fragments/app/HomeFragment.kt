@@ -1,20 +1,22 @@
 package com.ort.tablaturapp_pf.fragments.app
 
 import Cancion
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.cardview.widget.CardView
-import androidx.core.view.get
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.ort.tablaturapp_pf.R
+import com.ort.tablaturapp_pf.fragments.authentication.LoginFragmentDirections
 import com.ort.tablaturapp_pf.viewmodels.HomeViewModel
+
 
 class HomeFragment : Fragment() {
 
@@ -26,6 +28,7 @@ class HomeFragment : Fragment() {
     val songs = mutableListOf<Cancion>()
     var listIds = mutableListOf<String>()
 
+    private val auth = Firebase.auth;
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -42,6 +45,8 @@ class HomeFragment : Fragment() {
         listView1 = homeView.findViewById(R.id.lv1)
         listView2 = homeView.findViewById(R.id.lv2)
         subscriptionCard = homeView.findViewById(R.id.cv_subscription)
+
+        setHasOptionsMenu(true);
 
         return homeView
     }
@@ -64,6 +69,23 @@ class HomeFragment : Fragment() {
         subscriptionCard.setOnClickListener{
             goToFragment(SubscriptionFragment())
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.log_out_menu -> {
+                auth.signOut()
+                val action = HomeFragmentDirections.actionHomeFragmentToMainActivity()
+                homeView.findNavController().navigate(action)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
