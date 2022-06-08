@@ -12,11 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="125dp"
+            android:layout_height="47dp"
+            android:background="@drawable/rounded_button"
             android:text="Ingresar"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +26,7 @@
             app:layout_constraintVertical_bias="0.731" />
 
         <EditText
-            android:id="@+id/text_password2"
+            android:id="@+id/loginPasswordEdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -39,7 +41,7 @@
             app:layout_constraintVertical_bias="0.588" />
 
         <EditText
-            android:id="@+id/text_user2"
+            android:id="@+id/loginEmailEdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -57,13 +59,12 @@
             android:id="@+id/registerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Soy nuevo"
+            android:text="Registrarme"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.858" />
+            app:layout_constraintVertical_bias="0.928" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -78,7 +79,7 @@
             app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
         <TextView
-            android:id="@+id/text_recupero2"
+            android:id="@+id/forgotPasswordButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:accessibilityLiveRegion="polite"
@@ -88,7 +89,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.94" />
+            app:layout_constraintVertical_bias="0.877" />
 
         <TextView
             android:id="@+id/textView3"
@@ -97,6 +98,7 @@
             android:baselineAligned="false"
             android:gravity="start|center_horizontal|top"
             android:text="PartiturApp"
+            android:textColor="#4b3f72"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
