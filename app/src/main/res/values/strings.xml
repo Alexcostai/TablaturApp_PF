@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TablaturApp_PF</string>
     <string name="searchView_emptyListText">¡Busca tu canción o artista favorito!</string>
+    <string name="subscriptionView_title">¡Obtené tu usuario premium!</string>
+    <string name="subscriptionView_body">Como usuario premium podrás obtener los siguientes beneficios:</string>
+    <string name="subscriptionView_subscribe">SUSCRIBIRSE</string>
 </resources>
