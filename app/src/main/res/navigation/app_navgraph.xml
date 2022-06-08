@@ -29,6 +29,9 @@
         android:label="search_fragment"
         tools:layout="@layout/search_fragment" >
         <action
+            android:id="@+id/action_searchFragment_to_songFragment"
+            app:destination="@id/songFragment" />
+        <action
             android:id="@+id/action_searchFragment_to_artistFragment"
             app:destination="@id/artistFragment" />
     </fragment>
@@ -48,7 +51,14 @@
         android:id="@+id/artistFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.ArtistFragment"
         android:label="artist_fragment"
-        tools:layout="@layout/artist_fragment" />
+        tools:layout="@layout/artist_fragment" >
+        <argument
+            android:name="artistName"
+            app:argType="string" />
+        <argument
+            android:name="artistId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/songFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.SongFragment"
