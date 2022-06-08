@@ -14,6 +14,9 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.ort.tablaturapp_pf.R
 import com.ort.tablaturapp_pf.viewmodels.CreateLearningPathViewModel
 import kotlinx.coroutines.*
@@ -28,7 +31,9 @@ class CreateLearningPathFragment : Fragment() {
   lateinit var createLearningPathView: View
   lateinit var createLearningPathBtn: Button
   private val SPOTIFY_BEARER =
-    "BQCYn9jTaJQwL-txtK7oPIUr61bEnvKidj_1LsTpfewKGyCCXS0cnVKpUQedQID86Yrek5WiEIOEdUrqO3z2yZNblf9gS_HWYPoo0xiNDUMkGJZR2_yek9dZYkZ8MWN0PZuFnk3TpgVRPLFNqt865jqDjy3G_h1iM04"
+    "BQBfm5CNe2ZBfftUIlxA7L04uzDUdx6O3ofPzvgm-RfeRgZHLgmOLRyLC_LAKlfuXPI1VOsuopJoL3KwKs4ZPrxL9xNxnKwv8J-YExxFSGsaUUXAQ48C45i6XDJXc3bL7IqCq9D4d70J4R9Ja261yYdW75_MHwnscXA"
+  private val db = Firebase.firestore
+  private val auth = Firebase.auth
 
   companion object {
     fun newInstance() = CreateLearningPathFragment()
@@ -48,6 +53,7 @@ class CreateLearningPathFragment : Fragment() {
 
   override fun onStart() {
     super.onStart()
+    val args = CreateLearningPathFragmentArgs.fromBundle(requireArguments())
     val selectedGenres = mutableListOf<String>()
     val checkBoxGenres = getCheckBoxGenres()
     checkBoxGenres.forEach {
@@ -100,9 +106,34 @@ class CreateLearningPathFragment : Fragment() {
               i += 1;
             }
           }
-          Log.d("TERMINO_CANCIONES",songsterrSongsIds.toString())
+          if (args.isPremium) {
+            setSongsInFirestore(songsterrSongsIds, "learningPathPremium")
+          } else {
+            setSongsInFirestore(songsterrSongsIds, "learningPath")
+          }
         }
       }
+    }
+  }
+
+  private fun setSongsInFirestore(songs: ArrayList<String>, fieldId: String) {
+    auth.currentUser?.let { it1 ->
+      db.collection("users").document(it1.uid)
+        .update(
+          fieldId, songs
+        )
+        .addOnSuccessListener {
+          Toast.makeText(
+            context, "Ruta generada con exito.",
+            Toast.LENGTH_SHORT
+          ).show()
+        }
+        .addOnFailureListener {
+          Toast.makeText(
+            context, "Error al crear la ruta de aprendizaje.",
+            Toast.LENGTH_SHORT
+          ).show()
+        }
     }
   }
 
@@ -172,14 +203,16 @@ class CreateLearningPathFragment : Fragment() {
           for (idx in 0 until jsonSongs.length()) {
             val bundle = Bundle()
             try {
-            val jsonTrack = jsonSongs.getJSONObject(idx).getJSONObject("track");
+              val jsonTrack = jsonSongs.getJSONObject(idx).getJSONObject("track");
               val artist =
                 jsonTrack.getJSONArray("artists").getJSONObject(0).getString("name");
               val name = jsonTrack.getString("name");
               bundle.putString("artist", artist);
               bundle.putString("name", name);
               songs.add(bundle);
-            } catch(e : Exception){Log.w("TrackError","Track is null")}
+            } catch (e: Exception) {
+              Log.w("TrackError", "Track is null")
+            }
           }
           cont.resume(songs);
         },

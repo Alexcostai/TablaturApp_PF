@@ -63,8 +63,8 @@ class RegisterFragment : Fragment() {
               task.result.user?.let { it1 ->
                 val newUser = hashMapOf(
                   "isPremium" to false,
-                  "learningPath" to null,
-                  "learningPathPremium" to null
+                  "learningPath" to arrayListOf<String>(),
+                  "learningPathPremium" to arrayListOf<String>()
                 )
                 db.collection("users").document(it1.uid).set(newUser).addOnSuccessListener {
                   val action =

@@ -27,6 +27,7 @@
         <entry key="app/src/main/res/layout/register_fragment.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/search_fragment.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/song_fragment.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/subscription_fragment.xml" value="0.1953125" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.24375" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.34270833333333334" />
         <entry key="app/src/main/res/menu/nav_search_menu.xml" value="0.19010416666666666" />
