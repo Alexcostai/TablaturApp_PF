@@ -17,17 +17,15 @@ import com.ort.tablaturapp_pf.viewmodels.SongViewModel
 class SongFragment : Fragment() {
 
     lateinit var homeView: View
-    lateinit var txt_song: TextView
     lateinit var web: WebView
     lateinit var id: String
 
 
     companion object {
-        fun newInstance(song_id: String, songName: String): SongFragment{
+        fun newInstance(song_id: String): SongFragment{
             val fragment = SongFragment()
             val args = Bundle()
             args.putString("song_id", song_id)
-            args.putString("songName", songName)
             fragment.arguments = args
             return fragment
         }
@@ -40,7 +38,6 @@ class SongFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         homeView = inflater.inflate(R.layout.song_fragment, container, false)
-        txt_song = homeView.findViewById(R.id.name_song)
         web = homeView.findViewById(R.id.webView)
 
 
@@ -56,7 +53,6 @@ class SongFragment : Fragment() {
     override fun onStart(){
         super.onStart()
         val args = SongFragmentArgs.fromBundle(requireArguments())
-        txt_song.text = args.songName
         val id = args.songId
         val settings: WebSettings = web.settings
         settings.allowFileAccess = true

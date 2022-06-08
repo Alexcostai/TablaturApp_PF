@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
         // TODO: Use the ViewModel
 
         listView1.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            goToFragment(SongFragment(), listIds[position], parent?.getItemAtPosition(position).toString())
+            goToFragment(SongFragment(), listIds[position])
 
         }
     }
@@ -96,12 +96,11 @@ class HomeFragment : Fragment() {
         queue.add(jsonArrayRequest)
     }
 
-    private fun goToFragment(fragment: Fragment, song_id: String, songName: String){
+    private fun goToFragment(fragment: Fragment, song_id: String){
         parentFragmentManager.beginTransaction().apply {
             val clpFragment : Fragment = fragment
             val arguments = Bundle()
             arguments.putString("song_id", song_id)
-            arguments.putString("songName", songName)
             clpFragment.arguments = arguments
             replace(R.id.navAppController,clpFragment)
             commit()

@@ -22,7 +22,7 @@ class SearchFragment : Fragment() {
     private lateinit var searchListView: ListView
     private lateinit var searchTextView: TextView
     private lateinit var artistIdList: List<Int>
-    private lateinit var songIdList: List<Int>
+    private lateinit var songIdList: List<String>
     private var artistsLength: Int = 3
 
     override fun onCreateView(
@@ -89,7 +89,7 @@ class SearchFragment : Fragment() {
         val artists = mutableListOf<String>()
         val results = mutableListOf<String>()
         val artistsId = mutableListOf<Int>()
-        val songsId = mutableListOf<Int>()
+        val songsId = mutableListOf<String>()
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url,null, { response ->
@@ -99,7 +99,7 @@ class SearchFragment : Fragment() {
                          songs.add(resultObject.getString("title") +" - " + resultObject.getJSONObject("artist").getString("nameWithoutThePrefix"))
                          artists.add(resultObject.getJSONObject("artist").getString("nameWithoutThePrefix"))
                          artistsId.add(resultObject.getJSONObject("artist").getInt("id"))
-                         songsId.add(resultObject.getInt("id"))
+                         songsId.add(resultObject.getString("id"))
                     }
                     songIdList = songsId
                     artistIdList = artistsId.distinct().subList(0,getValidLength(artistsId.distinct().size, 3))
@@ -144,11 +144,11 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun goToFragment(fragment: Fragment, id: Int){
+    private fun goToFragment(fragment: Fragment, song_id: String){
         parentFragmentManager.beginTransaction().apply {
             val clpFragment : Fragment = fragment
             val arguments = Bundle()
-            arguments.putInt("song_id", id)
+            arguments.putString("song_id", song_id)
             clpFragment.arguments = arguments
             replace(R.id.navAppController,clpFragment)
             commit()

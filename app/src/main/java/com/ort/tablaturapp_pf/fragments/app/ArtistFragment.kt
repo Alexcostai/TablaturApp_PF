@@ -31,7 +31,7 @@ class ArtistFragment : Fragment() {
     private lateinit var contentView: View
     private lateinit var artistTextView: TextView
     private lateinit var artistListView: ListView
-    private lateinit var songIdList: List<Int>
+    private lateinit var songIdList: List<String>
     private lateinit var args: ArtistFragmentArgs
 
     override fun onCreateView(
@@ -61,7 +61,7 @@ class ArtistFragment : Fragment() {
         val queue = Volley.newRequestQueue(contentView.context)
         val songs = mutableListOf<String>()
         val results = mutableListOf<String>()
-        val songsId = mutableListOf<Int>()
+        val songsId = mutableListOf<String>()
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url,null, { response ->
@@ -75,7 +75,7 @@ class ArtistFragment : Fragment() {
                                 ).getString("nameWithoutThePrefix")
                             )
                         }
-                        songsId.add(resultObject.getInt("id"))
+                        songsId.add(resultObject.getString("id"))
                     }
                     songIdList = songsId
                     results.addAll(songs)
@@ -99,11 +99,11 @@ class ArtistFragment : Fragment() {
         }
     }
 
-    private fun goToFragment(fragment: Fragment, songId: Int){
+    private fun goToFragment(fragment: Fragment, songId: String){
         parentFragmentManager.beginTransaction().apply {
             val clpFragment : Fragment = fragment
             val arguments = Bundle()
-            arguments.putInt("songId", songId)
+            arguments.putString("song_id", songId)
             clpFragment.arguments = arguments
             replace(R.id.navAppController,clpFragment)
             commit()
