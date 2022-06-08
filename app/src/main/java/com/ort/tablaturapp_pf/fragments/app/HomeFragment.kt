@@ -74,6 +74,7 @@ class HomeFragment : Fragment() {
         var artist: String
         var name: String
         var id: String
+        var max: Int = 4
 
 
         val jsonArrayRequest = JsonArrayRequest(
@@ -87,7 +88,7 @@ class HomeFragment : Fragment() {
                     listIds.add(id)
                     songs.add(song)
                 }
-                for (i in 0 until songs.size){
+                for (i in 0 until max){
                    val conc = songs[i].artist + " - " + songs[i].title
                     junto.add(conc)
                 }

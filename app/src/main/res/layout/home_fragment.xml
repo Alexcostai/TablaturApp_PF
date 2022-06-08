@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.app.HomeFragment">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#C8F3F9">
+        android:background="#C8F3F9"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.app.HomeFragment">
+
 
         <TextView
             android:id="@+id/textView"
@@ -27,7 +27,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="144dp"
+            android:layout_marginTop="128dp"
             android:text="Vistas recientemente"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.057"
@@ -39,12 +39,12 @@
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="44dp"
             android:text="Ruta"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/textView11"
             app:layout_constraintEnd_toStartOf="@+id/button3"
-            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintHorizontal_bias="0.263"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
@@ -59,7 +59,7 @@
             app:layout_constraintHorizontal_bias="0.723"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.146" />
+            app:layout_constraintVertical_bias="0.133" />
 
         <TextView
             android:id="@+id/textView12"
@@ -71,7 +71,7 @@
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lv1"
-            app:layout_constraintVertical_bias="0.101" />
+            app:layout_constraintVertical_bias="0.068" />
 
         <ListView
             android:id="@+id/lv1"
@@ -112,4 +112,3 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
