@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.ort.tablaturapp_pf.fragments.app.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
+        tools:layout="@layout/home_fragment">
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -25,6 +25,14 @@
         <action
             android:id="@+id/action_homeFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="www.mercadopago.com/{success}" />
+        <argument
+            android:name="success"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
