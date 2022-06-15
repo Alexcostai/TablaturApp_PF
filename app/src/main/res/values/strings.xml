@@ -5,4 +5,6 @@
     <string name="subscriptionView_title">¡Obtené tu usuario premium!</string>
     <string name="subscriptionView_body">Como usuario premium podrás obtener los siguientes beneficios:</string>
     <string name="subscriptionView_subscribe">SUSCRIBIRSE</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
