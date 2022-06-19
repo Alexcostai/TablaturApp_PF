@@ -5,6 +5,9 @@
     <string name="subscriptionView_title">¡Obtené tu usuario premium!</string>
     <string name="subscriptionView_body">Como usuario premium podrás obtener los siguientes beneficios:</string>
     <string name="subscriptionView_subscribe">SUSCRIBIRSE</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgotPassword_title">Recuperar contraseña</string>
+    <string name="forgotPassword_attention">¡ATENCIÓN!</string>
+    <string name="forgotPassword_disclaimer">Ingresá tu email para que podamos enviarte un correo para recuperar tu contraseña. En caso de no ver el correo, es posible que se encuentre dentro de spam.</string>
+    <string name="forgotPassword_button">Enviar Correo</string>
+    <string name="forgotPassword_email">Email</string>
 </resources>

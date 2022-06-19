@@ -31,6 +31,7 @@ class LoginFragment : Fragment() {
     val IS_EMPTY_ERROR = "Este campo no puede estar vacio."
 
     val auth = Firebase.auth
+    val db = Firebase
     lateinit var loginView: View
     lateinit var loginButton: Button
     lateinit var emailEdt: EditText
@@ -87,6 +88,11 @@ class LoginFragment : Fragment() {
 
         registerButton.setOnClickListener {
             val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+            loginView.findNavController().navigate(action)
+        }
+
+        forgotPasswordButton.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
             loginView.findNavController().navigate(action)
         }
     }
