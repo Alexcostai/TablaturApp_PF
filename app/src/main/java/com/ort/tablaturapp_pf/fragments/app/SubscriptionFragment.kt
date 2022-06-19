@@ -33,7 +33,7 @@ class SubscriptionFragment : Fragment() {
   private val auth = Firebase.auth
 
   private val MERCADO_PAGO_BEARER =
-    "TEST-5380965297847135-052618-7962bb35276284072015cbe30a276504-218522566";
+    "TEST-8907559517508214-061319-ca495a6e51e26e414c9058e9fe7a9823-1142307329";
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -61,8 +61,8 @@ class SubscriptionFragment : Fragment() {
       autoRecurring.put("currency_id", "ARS")
       jsonBody.put("reason", "Premium - TablaturApp")
       jsonBody.put("auto_recurring", autoRecurring)
-      jsonBody.put("back_url", "https://www.google.com.ar")
-      jsonBody.put("payer_email", "example@email.com.ar")
+      jsonBody.put("back_url", "https://www.mercadopago.com/success")
+      jsonBody.put("payer_email", "test_user_78947070@testuser.com")
       Log.d("JSON_BODY", jsonBody.toString())
 
       val queue = Volley.newRequestQueue(context)

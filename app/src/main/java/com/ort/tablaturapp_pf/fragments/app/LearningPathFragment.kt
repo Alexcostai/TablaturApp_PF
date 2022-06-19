@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ class LearningPathFragment : Fragment() {
   lateinit var lppCardView: CardView
   lateinit var lppCreateCardView: CardView
   lateinit var learningPathView: View
+  lateinit var img: ImageView
 
   private val db = Firebase.firestore
   private val auth = Firebase.auth
@@ -46,8 +48,11 @@ class LearningPathFragment : Fragment() {
     lpCreateCardView = learningPathView.findViewById(R.id.lpCreateCardView)
     lppCardView = learningPathView.findViewById(R.id.lppCardView)
     lppCreateCardView = learningPathView.findViewById(R.id.lppCreateCardView)
+    img = learningPathView.findViewById(R.id.imageView4)
     return learningPathView
   }
+
+
 
   override fun onStart() {
     super.onStart()
@@ -71,6 +76,9 @@ class LearningPathFragment : Fragment() {
           lpCardView.isVisible = learningPathSongs.size != 0;
           lppCreateCardView.isVisible = learningPathPremiumSongs.size == 0;
           lppCardView.isVisible = learningPathPremiumSongs.size != 0;
+          img.setOnClickListener{
+            goToFragment(LearningList())
+          }
         }
       }
     }
@@ -99,6 +107,7 @@ class LearningPathFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
     viewModel = ViewModelProvider(this).get(LearningPathViewModel::class.java)
     // TODO: Use the ViewModel
+
   }
 
 }
