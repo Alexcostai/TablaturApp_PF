@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
@@ -30,8 +32,9 @@ class CreateLearningPathFragment : Fragment() {
 
   lateinit var createLearningPathView: View
   lateinit var createLearningPathBtn: Button
+  lateinit var pbCreateLp: ProgressBar
   private val SPOTIFY_BEARER =
-    "BQBkZtZYKA0p9Rl-By31La7yf4IxfpF6KROLp17pWOActqkdMTWq9ReX-9eLOBhkPhkgaA1UVuYX83yCsk9HRqZDdPt9isUILl9T90xvqbQCyM8vTPv3B9bZNgrwgxfi6rXdxUzZVNFwHaZ5XlLE5pokjN0mbFtymHU"
+    "BQAafTQq0p0VwRrGriBTsX2UlR5plwTcBjqNqXDshd44xXxJsnUoU1xPV_mr8URlkuqZ1iLX0d7tu8jCBx07AV995XAYLm7uwx_J7BaZ9MGKHLSdCIHg35hD2qQ4pb3_czEC5guBQ9imXxZxScR4PwmBDtD78tYKSN9HmpHDCpS58yPBI5ZkH9zxDYdOiiy_gFal"
   private val db = Firebase.firestore
   private val auth = Firebase.auth
 
@@ -48,6 +51,7 @@ class CreateLearningPathFragment : Fragment() {
     createLearningPathView =
       inflater.inflate(R.layout.create_learning_path_fragment, container, false)
     createLearningPathBtn = createLearningPathView.findViewById(R.id.createLearningPathBtn)
+    pbCreateLp = createLearningPathView.findViewById(R.id.pbCreateLp);
     return createLearningPathView;
   }
 
@@ -84,8 +88,9 @@ class CreateLearningPathFragment : Fragment() {
           Toast.LENGTH_SHORT
         ).show()
       } else {
+        handleLoadingBtn();
         val quantitySongsByGenre = getQuantitySongsByGenre(selectedGenres);
-        val songsterrSongsIds = arrayListOf<String>();
+        val songsterrSongs = arrayListOf<HashMap<String, Any?>>();
         GlobalScope.launch(Dispatchers.Main) {
           for (idx in 0 until selectedGenres.size) {
             var i = 0;
@@ -97,26 +102,31 @@ class CreateLearningPathFragment : Fragment() {
             val songsJob = async { getSongsByPlaylist(playlistId.await()) }
             val songs = songsJob.await();
             while (addedSongs !== songsByGenre && i < songs.size) {
-              val songsterrSongIDJob = async { getSongsterrSongId(songs[i]) }
-              val songsterrSongID = songsterrSongIDJob.await()
-              if (songsterrSongID != "") {
-                songsterrSongsIds.add(songsterrSongID);
+              val songsterrSongJob = async { getSongsterrSong(songs[i]) }
+              val songsterrSong = songsterrSongJob.await();
+              if (songsterrSong.size() != 0) {
+                val hashMapSong = hashMapOf(
+                  "id" to songsterrSong["id"],
+                  "name" to songsterrSong["name"],
+                  "artist" to songsterrSong["artist"]
+                )
+                songsterrSongs.add(hashMapSong);
                 addedSongs += 1;
               }
               i += 1;
             }
           }
           if (args.isPremium) {
-            setSongsInFirestore(songsterrSongsIds, "learningPathPremium")
+            setSongsInFirestore(songsterrSongs, "learningPathPremium")
           } else {
-            setSongsInFirestore(songsterrSongsIds, "learningPath")
+            setSongsInFirestore(songsterrSongs, "learningPath")
           }
         }
       }
     }
   }
 
-  private fun setSongsInFirestore(songs: ArrayList<String>, fieldId: String) {
+  private fun setSongsInFirestore(songs: ArrayList<HashMap<String, Any?>>, fieldId: String) {
     auth.currentUser?.let { it1 ->
       db.collection("users").document(it1.uid)
         .update(
@@ -127,22 +137,29 @@ class CreateLearningPathFragment : Fragment() {
             context, "Ruta generada con exito.",
             Toast.LENGTH_SHORT
           ).show()
+          goToFragment(LearningList(), songs)
         }
         .addOnFailureListener {
           Toast.makeText(
             context, "Error al crear la ruta de aprendizaje.",
             Toast.LENGTH_SHORT
           ).show()
+          handleLoadingBtn();
         }
     }
+  }
+
+  private fun handleLoadingBtn() {
+    createLearningPathBtn.isVisible = false;
+    pbCreateLp.isVisible = true;
   }
 
   private fun getKeyFromGenre(genre: String): String {
     return genre.lowercase()
   }
 
-  private suspend fun getSongsterrSongId(song: Bundle) =
-    suspendCoroutine<String> { cont ->
+  private suspend fun getSongsterrSong(song: Bundle) =
+    suspendCoroutine<Bundle> { cont ->
       val queue = Volley.newRequestQueue(context)
       val artist = song.getString("artist")?.replace("\\s+".toRegex(), "%");
       val songName = song.getString("name")?.replace("\\s+".toRegex(), "%")
@@ -150,22 +167,21 @@ class CreateLearningPathFragment : Fragment() {
         "https://www.songsterr.com/a/ra/songs.json?pattern=$artist%$songName"
       val stringRequest = object : StringRequest(Request.Method.GET, url,
         Response.Listener<String> { response ->
-          var songId = ""
           if (JSONArray(response).length() >= 1) {
             val apiSong = JSONArray(response).getJSONObject(0)
             val artistName = apiSong.getJSONObject("artist").getString("name")
             if (artistName == song.getString("artist")) {
-              songId = JSONArray(response).getJSONObject(0).getInt("id").toString()
+              val songId = JSONArray(response).getJSONObject(0).getInt("id").toString()
+              song.putString("id", songId);
+              cont.resume(song);
             }
-            cont.resume(songId);
           } else {
-            cont.resume(songId);
+            cont.resume(Bundle());
           }
         },
         Response.ErrorListener { error -> Log.e("SongsterrError", error.toString()) }) {}
       queue.add(stringRequest)
     }
-
 
   private suspend fun getPlaylistIdByGenre(genre: String) =
     suspendCoroutine<String> { cont ->
@@ -227,16 +243,14 @@ class CreateLearningPathFragment : Fragment() {
       queue.add(stringRequest)
     }
 
-
   private fun getQuantitySongsByGenre(selectedGenres: MutableList<String>): IntArray {
     var quantitySongsByGenre = intArrayOf(10);
     when (selectedGenres.size) {
       2 -> quantitySongsByGenre = intArrayOf(5, 5)
-      3 -> quantitySongsByGenre = intArrayOf(3, 3, 4)
+      3 -> quantitySongsByGenre = intArrayOf(4, 3, 3)
     }
     return quantitySongsByGenre
   }
-
 
   private fun getCheckBoxGenres(): ArrayList<CheckBox> {
     val checkBoxGenres = arrayListOf<CheckBox>()
@@ -247,6 +261,29 @@ class CreateLearningPathFragment : Fragment() {
     checkBoxGenres.add(v.findViewById(R.id.bluesCbx))
     checkBoxGenres.add(v.findViewById(R.id.punkCbx))
     return checkBoxGenres;
+  }
+
+  private fun goToFragment(fragment: Fragment, songs : ArrayList<HashMap<String, Any?>>) {
+    parentFragmentManager.beginTransaction().apply {
+      val clpFragment: Fragment = fragment
+      clpFragment.arguments = songsToArguments(songs);
+      replace(R.id.navAppController, clpFragment)
+      commit()
+    }
+  }
+
+  private fun songsToArguments(songs: ArrayList<HashMap<String, Any?>>): Bundle {
+    val songsTitles = Array<String>(songs.size) { "" }
+    val ids = Array<String>(songs.size) { "" }
+    val arguments = Bundle()
+    for (idx in 0 until songs.size) {
+      val song = songs[idx];
+      songsTitles[idx] = ("${song["name"]} - ${song["artist"]}");
+      song["id"]?.let { it1 -> ids[idx] = (it1 as String) }
+    }
+    arguments.putStringArray("songs", songsTitles);
+    arguments.putStringArray("ids", ids);
+    return arguments
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {

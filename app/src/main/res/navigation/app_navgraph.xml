@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_learningPathFragment_to_subscriptionFragment"
             app:destination="@id/subscriptionFragment" />
+        <action
+            android:id="@+id/action_learningPathFragment_to_learningList"
+            app:destination="@id/learningList" />
     </fragment>
     <fragment
         android:id="@+id/artistFragment"
@@ -98,4 +101,16 @@
         android:name="com.ort.tablaturapp_pf.activities.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/learningList"
+        android:name="com.ort.tablaturapp_pf.fragments.app.LearningList"
+        android:label="fragment_learning_list"
+        tools:layout="@layout/fragment_learning_list" >
+        <argument
+            android:name="songs"
+            app:argType="string[]" />
+        <argument
+            android:name="ids"
+            app:argType="string[]" />
+    </fragment>
 </navigation>

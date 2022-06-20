@@ -10,12 +10,12 @@ import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.tablaturapp_pf.R
 import com.ort.tablaturapp_pf.viewmodels.LearningPathViewModel
-import java.util.*
 import kotlin.collections.ArrayList
 
 class LearningPathFragment : Fragment() {
@@ -29,8 +29,8 @@ class LearningPathFragment : Fragment() {
 
   private val db = Firebase.firestore
   private val auth = Firebase.auth
-  private var learningPathSongs = arrayListOf<String>()
-  private var learningPathPremiumSongs = arrayListOf<String>()
+  private var learningPathSongs = arrayListOf<HashMap<String, Any?>>()
+  private var learningPathPremiumSongs = arrayListOf<HashMap<String, Any?>>()
   private var user: MutableMap<String, Object>? = null
 
   companion object {
@@ -53,7 +53,6 @@ class LearningPathFragment : Fragment() {
   }
 
 
-
   override fun onStart() {
     super.onStart()
     auth.currentUser?.let {
@@ -62,42 +61,52 @@ class LearningPathFragment : Fragment() {
         if (user != null) {
           lppCreateCardView.setOnClickListener {
             if (user!!["isPremium"] as Boolean) {
-              goToFragment(CreateLearningPathFragment(), true)
+              val arguments = Bundle()
+              arguments.putBoolean("isPremium", true)
+              goToFragment(CreateLearningPathFragment(), arguments)
             } else {
-              goToFragment(SubscriptionFragment())
+              goToFragment(SubscriptionFragment(), null)
             }
           }
           lpCreateCardView.setOnClickListener {
-            goToFragment(CreateLearningPathFragment(), false)
+            val arguments = Bundle()
+            arguments.putBoolean("isPremium", false)
+            goToFragment(CreateLearningPathFragment(), arguments)
           }
-          learningPathSongs = user!!["learningPath"] as ArrayList<String>
-          learningPathPremiumSongs = user!!["learningPathPremium"] as ArrayList<String>
+          learningPathSongs = user!!["learningPath"] as ArrayList<HashMap<String, Any?>>
+          learningPathPremiumSongs =
+            user!!["learningPathPremium"] as ArrayList<HashMap<String, Any?>>
           lpCreateCardView.isVisible = learningPathSongs.size == 0;
           lpCardView.isVisible = learningPathSongs.size != 0;
           lppCreateCardView.isVisible = learningPathPremiumSongs.size == 0;
           lppCardView.isVisible = learningPathPremiumSongs.size != 0;
-          img.setOnClickListener{
-            goToFragment(LearningList())
+          img.setOnClickListener {
+            val arguments = songsToArguments(learningPathSongs)
+            goToFragment(LearningList(), arguments);
           }
         }
       }
     }
   }
 
-  private fun goToFragment(fragment: Fragment, isPremium: Boolean) {
-    parentFragmentManager.beginTransaction().apply {
-      val clpFragment: Fragment = fragment
-      val arguments = Bundle()
-      arguments.putBoolean("isPremium", isPremium)
-      clpFragment.arguments = arguments
-      replace(R.id.navAppController, clpFragment)
-      commit()
+  private fun songsToArguments(songs: ArrayList<HashMap<String, Any?>>): Bundle {
+    val songsTitles = Array<String>(songs.size) { "" }
+    val ids = Array<String>(songs.size) { "" }
+    val arguments = Bundle()
+    for (idx in 0 until songs.size) {
+      val song = songs[idx];
+      songsTitles[idx] = ("${song["name"]} - ${song["artist"]}");
+      song["id"]?.let { it1 -> ids[idx] = (it1 as String) }
     }
+    arguments.putStringArray("songs", songsTitles);
+    arguments.putStringArray("ids", ids);
+    return arguments
   }
 
-  private fun goToFragment(fragment: Fragment) {
+  private fun goToFragment(fragment: Fragment, arguments: Bundle?) {
     parentFragmentManager.beginTransaction().apply {
       val clpFragment: Fragment = fragment
+      clpFragment.arguments = arguments
       replace(R.id.navAppController, clpFragment)
       commit()
     }
