@@ -25,7 +25,8 @@ class LearningPathFragment : Fragment() {
   lateinit var lppCardView: CardView
   lateinit var lppCreateCardView: CardView
   lateinit var learningPathView: View
-  lateinit var img: ImageView
+  lateinit var goToLearningPath: ImageView
+  lateinit var goToLearningPathPremium: ImageView
 
   private val db = Firebase.firestore
   private val auth = Firebase.auth
@@ -48,7 +49,8 @@ class LearningPathFragment : Fragment() {
     lpCreateCardView = learningPathView.findViewById(R.id.lpCreateCardView)
     lppCardView = learningPathView.findViewById(R.id.lppCardView)
     lppCreateCardView = learningPathView.findViewById(R.id.lppCreateCardView)
-    img = learningPathView.findViewById(R.id.imageView4)
+    goToLearningPath = learningPathView.findViewById(R.id.imageView4)
+    goToLearningPathPremium = learningPathView.findViewById(R.id.imageView3)
     return learningPathView
   }
 
@@ -80,8 +82,14 @@ class LearningPathFragment : Fragment() {
           lpCardView.isVisible = learningPathSongs.size != 0;
           lppCreateCardView.isVisible = learningPathPremiumSongs.size == 0;
           lppCardView.isVisible = learningPathPremiumSongs.size != 0;
-          img.setOnClickListener {
+          goToLearningPath.setOnClickListener {
             val arguments = songsToArguments(learningPathSongs)
+            arguments.putBoolean("isEditable", false);
+            goToFragment(LearningList(), arguments);
+          }
+          goToLearningPathPremium.setOnClickListener {
+            val arguments = songsToArguments(learningPathPremiumSongs)
+            arguments.putBoolean("isEditable", user!!["isPremium"] as Boolean);
             goToFragment(LearningList(), arguments);
           }
         }

@@ -34,7 +34,7 @@ class CreateLearningPathFragment : Fragment() {
   lateinit var createLearningPathBtn: Button
   lateinit var pbCreateLp: ProgressBar
   private val SPOTIFY_BEARER =
-    "BQAafTQq0p0VwRrGriBTsX2UlR5plwTcBjqNqXDshd44xXxJsnUoU1xPV_mr8URlkuqZ1iLX0d7tu8jCBx07AV995XAYLm7uwx_J7BaZ9MGKHLSdCIHg35hD2qQ4pb3_czEC5guBQ9imXxZxScR4PwmBDtD78tYKSN9HmpHDCpS58yPBI5ZkH9zxDYdOiiy_gFal"
+    "BQDrUZXsqhFgdNcnrVSN-ZMRceWjLCGPMbYhFiImfwBzV2y3L66YD4tG00mWdOJjGWfgZKcKX9jBFbz48omvaha0nix83C8wHN4ryaZEyzNcR1x2cMTzhz2zumtQdzA8xfuIy0Kqa_LyX8iaRfpEyL78J8bV65LiuIagRilQbU8vdyWtU29n3M5d1OGL2YF_alub"
   private val db = Firebase.firestore
   private val auth = Firebase.auth
 
