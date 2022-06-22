@@ -69,6 +69,13 @@ class HomeFragment : Fragment() {
       }
     }
 
+    db.collection("users").document(auth.currentUser!!.uid).get()
+      .addOnSuccessListener {
+        subscriptionCard.isVisible = false;
+        val storage = context?.getSharedPreferences("user_config", 0);
+        storage?.edit()?.putBoolean("isPremium", true)?.apply();
+      }
+
     return homeView
   }
 

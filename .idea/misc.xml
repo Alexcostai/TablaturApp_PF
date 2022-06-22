@@ -11,9 +11,7 @@
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/activity_app.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/forgot_password_fragment.xml" value="0.259375" />
-        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/fragment_learning_list.xml" value="0.259375" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/home_fragment.xml" value="0.12613981762917933" />
-        <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/learning_path_fragment.xml" value="0.12613981762917933" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/login_fragment.xml" value="0.23550724637681159" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/register_fragment.xml" value="0.25" />
         <entry key="..\:/Users/Desktop/ORT/2-2D/TP3/TablaturApp_PF/app/src/main/res/layout/search_fragment.xml" value="0.12613981762917933" />
@@ -33,6 +31,7 @@
         <entry key="app/src/main/res/layout/search_fragment.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/song_fragment.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/subscription_fragment.xml" value="0.1953125" />
+        <entry key="app/src/main/res/menu/add_lp_song_menu.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.24375" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.34270833333333334" />
         <entry key="app/src/main/res/menu/nav_search_menu.xml" value="0.19010416666666666" />
