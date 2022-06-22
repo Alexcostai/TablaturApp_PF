@@ -1,16 +1,9 @@
 package com.ort.tablaturapp_pf.fragments.app
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.isVisible
-import android.widget.AdapterView
+import android.view.*
+import android.widget.*
 import android.widget.AdapterView.AdapterContextMenuInfo
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
