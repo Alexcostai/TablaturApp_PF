@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
   val songs = mutableListOf<Cancion>()
   var listIds = mutableListOf<String>()
   private val args: HomeFragmentArgs by navArgs()
+  lateinit var tvSuscriptionCard: TextView
 
   private val auth = Firebase.auth;
   private val db = Firebase.firestore
@@ -51,6 +52,7 @@ class HomeFragment : Fragment() {
     listView1 = homeView.findViewById(R.id.lv1)
     listView2 = homeView.findViewById(R.id.lv2)
     subscriptionCard = homeView.findViewById(R.id.cv_subscription)
+    tvSuscriptionCard = homeView.findViewById(R.id.tv_subscription)
 
     setHasOptionsMenu(true);
     args.success?.let {
@@ -60,7 +62,7 @@ class HomeFragment : Fragment() {
       } else {
         db.collection("users").document(auth.currentUser!!.uid).update("isPremium", true)
           .addOnSuccessListener {
-            subscriptionCard.isVisible = false;
+            tvSuscriptionCard.text = "¡Gracias por suscribirte!"+ System.lineSeparator() +"Ya tienes acceso a tu propia ruta";
             Toast.makeText(
               context, "Suscripción Premium Acreditada!.",
               Toast.LENGTH_LONG
@@ -70,10 +72,10 @@ class HomeFragment : Fragment() {
     }
 
     db.collection("users").document(auth.currentUser!!.uid).get()
-      .addOnSuccessListener {
-        subscriptionCard.isVisible = false;
-        val storage = context?.getSharedPreferences("user_config", 0);
-        storage?.edit()?.putBoolean("isPremium", true)?.apply();
+      .addOnSuccessListener { it ->
+        if((it["isPremium"] as Boolean)){
+          tvSuscriptionCard.text = "¡Gracias por suscribirte!"+ System.lineSeparator() +"Ya tienes acceso a tu propia ruta";
+        }
       }
 
     return homeView

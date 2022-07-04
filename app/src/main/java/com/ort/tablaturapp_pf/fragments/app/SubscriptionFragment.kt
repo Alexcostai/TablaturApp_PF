@@ -28,7 +28,6 @@ class SubscriptionFragment : Fragment() {
   private lateinit var tv_title: TextView
   private lateinit var tv_body: TextView
   private lateinit var subscribe_btn: Button
-  private lateinit var wv_list: WebView
 
   private val auth = Firebase.auth
 
@@ -43,14 +42,11 @@ class SubscriptionFragment : Fragment() {
     tv_title = contentView.findViewById(R.id.tv_title)
     tv_body = contentView.findViewById(R.id.tv_body)
     subscribe_btn = contentView.findViewById(R.id.subscribe_btn)
-    wv_list = contentView.findViewById(R.id.wv_list)
     return contentView
   }
 
   override fun onStart() {
     super.onStart()
-    wv_list.settings.javaScriptEnabled
-    wv_list.loadUrl("file:///android_asset/subscriptionList.html");
 
     subscribe_btn.setOnClickListener {
       val jsonBody = JSONObject()

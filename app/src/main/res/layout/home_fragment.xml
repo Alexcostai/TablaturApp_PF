@@ -75,7 +75,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tv_subscription"
                 android:layout_width="291dp"
                 android:layout_height="47dp"
                 android:text="Hacete premium y disfruta de todos los beneficios, tocá para ver más"
